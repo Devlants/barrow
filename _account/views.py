@@ -16,7 +16,6 @@ def login(request):
             if user.password == request.POST["password"]:
                 auth.login(request, user)
                 return redirect("home")
-
         return render(request, "login.html")
     else:
         return render(request, "login.html")
@@ -38,3 +37,30 @@ def register(request):
             print(e)
             return render(request, 'register.html')
     return render(request, 'register.html')
+
+def find_username(request):
+    if request.method=='POST':
+        user = User.objects.filter(name=request.POST["name"],phoneNum=request.POST["phoneNum"])
+        if(user.exists()):
+            username=user[0].username
+            context = {
+                "username": username
+            }
+        else:
+            return render(request, 'find_username.html')
+
+    return JsonResponse(context)
+
+
+def find_password(request):
+    if request.method=='POST':
+        user = User.objects.filter(username=request.POST["username"], name=request.POST["name"], phoneNum=request.POST["phoneNum"])
+        if(user.exists()):
+            password=user[0].password
+            context = {
+                "password": password
+            }
+        else:
+            return render(request, 'find_password.html')
+
+    return JsonResponse(context)
