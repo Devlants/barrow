@@ -23,8 +23,5 @@ class Migration(migrations.Migration):
             model_name='product',
             name='type',
             field=models.CharField(choices=[(1, '직거래만'), (2, '택배거래만'), (3, '택배/직거래')], max_length=20),
-        ),
-        migrations.DeleteModel(
-            name='Product_image',
-        ),
+        )
     ]
