@@ -11,7 +11,7 @@ from _account.models import User
 def login(request):
     if request.metod=='POST' :
         user = User.objects.filter(username=request.POST["username"])
-        if (user.exists()):
+        if user.exists():
             user = user[0]
             if user.password == request.POST["password"]:
                 auth.login(request, user)
@@ -21,7 +21,7 @@ def login(request):
         return render(request, "login.html")
 
 def register(request):
-    if request.method=='POST' :
+    if request.method=='POST' : #유저 등록
         try:
             user = User()
             user.username = request.POST['username']
@@ -38,10 +38,12 @@ def register(request):
             return render(request, 'register.html')
     return render(request, 'register.html')
 
+
+
 def find_username(request):
     if request.method=='POST':
         user = User.objects.filter(name=request.POST["name"],phoneNum=request.POST["phoneNum"])
-        if(user.exists()):
+        if user.exists():
             username=user[0].username
             context = {
                 "username": username
@@ -55,7 +57,7 @@ def find_username(request):
 def find_password(request):
     if request.method=='POST':
         user = User.objects.filter(username=request.POST["username"], name=request.POST["name"], phoneNum=request.POST["phoneNum"])
-        if(user.exists()):
+        if user.exists():
             password=user[0].password
             context = {
                 "password": password
@@ -64,3 +66,22 @@ def find_password(request):
             return render(request, 'find_password.html')
 
     return JsonResponse(context)
+
+
+def get_uesr(request):
+    if request.method == 'GET':
+        user = User.objects.filter(id=request.POST["id"])
+        if user.exists():
+            user=user[0]
+            context = {
+                "username": user.username,
+                "password": user.password,
+                "name": user.name,
+                "birth": user.birth,
+                "address": user.address,
+                "phoneNum": user.phoneNum,
+                "image": user.image
+            }
+
+
+
