@@ -12,11 +12,11 @@ from datetime import datetime
 class User(AbstractUser):
     password = models.CharField(max_length=20)
     name = models.CharField(max_length=200)
-    birth = models.DateField()
-    address = models.TextField()
-    phoneNum = PhoneNumberField()  # setting.py에 installedappsdp  'phonenumber_field',이거추가
-    favorite = models.ManyToManyField("_product.Product", related_name='favor')
-    keyword = models.ManyToManyField("_search.Keyword", related_name='search')
+    birth = models.DateField(default="")
+    address = models.TextField(default="")
+    phoneNum = PhoneNumberField(default="")  # setting.py에 installedappsdp  'phonenumber_field',이거추가
+    favorite = models.ManyToManyField("_product.Product", related_name='favor', default="")
+    keyword = models.ManyToManyField("_search.Keyword", related_name='search', default="")
     search_save = models.BooleanField(null=True, default=True)
     image = models.ImageField(default='static/img/account_default.png', upload_to='profile', blank=True, null=True)
 
