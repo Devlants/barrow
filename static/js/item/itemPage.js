@@ -1,3 +1,50 @@
+document.addEventListener("DOMContentLoaded", ()=>{ 
+  create_picBtn();
+  img_slide();
+});
+
+/*
+  상품이미지 슬라이드 기능
+*/
+var files = [];
+const pic_area = document.querySelector('.pic_btns');
+const class_cnt = document.getElementsByClassName('pics').length;
+
+//불러온 이미지 개수에 맞춰서 동그라미 버튼 생성하기
+function create_picBtn() {
+  for (var i= 0; i<class_cnt; i++){
+    let pic_btn = document.createElement('div');
+    pic_btn.setAttribute('class', 'pic_btn');
+    pic_area.appendChild(pic_btn);
+  }
+};
+
+//동그라미 index에 따라 이미지 보이기 & 색 지정
+function img_slide() {
+  const pic_btn = document.querySelectorAll(".pic_btns .pic_btn"); //버튼 선택
+  const item_pic = document.querySelectorAll(".item_pic .pics"); //이미지 선택
+
+  //초기설정
+  pic_btn[0].classList.add('selected');
+  item_pic[0].classList.remove('pics');
+
+  for (var i = 0; i < pic_btn.length; i++) {
+    pic_btn[i].addEventListener("click", (e)=>{
+      var btn_index = Array.from(pic_btn).indexOf(e.currentTarget);
+
+      for (var j=0; j<pic_btn.length; j++){
+        if (j == btn_index) {
+          pic_btn[j].classList.add('selected');
+          item_pic[j].classList.remove('pics');
+        } else {
+          pic_btn[j].classList.remove('selected');
+          item_pic[j].classList.add('pics');
+        }
+      }
+    });
+  }
+};
+
 const bottomVector = document.querySelector(".bottomVector");
 const nav_realtimesearch = document.querySelector(".nav_realtimesearch");
 const input_search = document.querySelector(".input_search");
@@ -102,7 +149,3 @@ const getInterval = () => {
 }
 
 let interval = getInterval(); // interval 등록
-
-/*
-  이미지 좌우로 넘기기
-*/

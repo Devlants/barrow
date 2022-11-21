@@ -584,6 +584,7 @@ a:hover {
   position: relative;
   overflow: hidden;
   display: inline-block;
+  width: 400px;
   height : 320px;
   margin : 20px;
   padding: 5px;
@@ -610,11 +611,18 @@ a:hover {
   background-color: #3D8361;
 }
 
-.pic {
-  background: url('./img/itemimg/imgSample.png');
+.selected {
+  background-color: #3D8361;
+}
+
+.item_pic > img {
   background-size: cover;
   width : 400px;
-  height: 300px;
+  height: 320px;
+}
+
+.pics {
+  display: none;
 }
 
 .item_info {
